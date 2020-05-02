@@ -21,7 +21,7 @@ router.get('/countries', async (req: Request, res: Response) => {
     let f = await fetch('https://corona.lmao.ninja/v2/countries?yesterday&sort');
     let data = await f.json();
     let dataParse = DataParse.getInstace();
-    if(!dataParse.getCountriesData().size) {
+    if(!dataParse.getCountriesData().size || !dataParse.checkLastUpdate(moment(new Date()).format('YYYY-MM-DD'))) {
       dataParse.parseCountries(data);
     }
 
@@ -37,7 +37,7 @@ router.get('/country/:country', async (req: Request, res: Response) => {
     let f = await fetch(url);
     let data = await f.json();
     let dataParse = DataParse.getInstace();
-    if(dataParse.getSpecCountryData()[`${req.params.country}`] === undefined) {
+    if(dataParse.getSpecCountryData()[`${req.params.country}`] === undefined || !dataParse.checkLastUpdate(moment(new Date()).format('YYYY-MM-DD'))) {
       dataParse.parseProvinces(data.data, req.params.country);
     }
 

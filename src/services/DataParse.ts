@@ -1,11 +1,14 @@
 import { Country } from '../interfaces/country';
 import { SpecificCountry } from '../interfaces/specific_country';
 
+import moment from 'moment';
+
 /*
   Singleton class with the responsability of parsing the incoming data
 */
 export class DataParse {
   private static dataParse: any;
+  private lastUpdate = moment(new Date()).format('YYYY-MM-DD');
   // As a cache
   private countriesData: any = {};
   private specCountryData: any = {};
@@ -25,6 +28,10 @@ export class DataParse {
 
   public getSpecCountryData(): SpecificCountry[] {
     return this.specCountryData;
+  }
+
+  public checkLastUpdate(date: any): boolean {
+    return date === this.lastUpdate;
   }
 
   /*
