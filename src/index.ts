@@ -8,10 +8,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use('/api', router);
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello');
-})
-
 app.listen(5000, () => {
   console.log("Running in port 5000");
 })
