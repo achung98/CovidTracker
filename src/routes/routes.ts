@@ -6,7 +6,7 @@ const router = express.Router();
 const fetch = require('node-fetch');
 
 router.get('/global', async (req: Request, res: Response) => {
-  let parsedDate = moment(new Date()).subtract(1, 'day').format('YYYY-MM-DD');
+  let parsedDate = moment(new Date()).subtract(2, 'day').format('YYYY-MM-DD');
   try {
     let f = await fetch(`https://covid-api.com/api/reports/total?date=${parsedDate}`);
     let data = await f.json();
