@@ -5,6 +5,7 @@ export interface Country {
     cases: number,
     today: number,
     dead: number,
-    cured: number
+    cured: number,
+    iso: string
   }
 }
