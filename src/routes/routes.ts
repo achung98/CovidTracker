@@ -32,7 +32,7 @@ router.get('/countries', async (req: Request, res: Response) => {
 })
 
 router.get('/country/:country', async (req: Request, res: Response) => {
-  let url = `https://covid-api.com/api/reports?region_name=${req.params.country}`;
+  let url = `https://covid-api.com/api/reports?iso=${req.params.country}`;
   try {
     let f = await fetch(url);
     let data = await f.json();

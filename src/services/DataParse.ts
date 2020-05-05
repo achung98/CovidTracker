@@ -47,7 +47,7 @@ export class DataParse {
           'today': ele.todayCases,
           'dead': ele.deaths,
           'cured': ele.recovered,
-          'iso': ele.countryInfo.iso2
+          'iso': ele.countryInfo.iso3
         };
       }
     })
