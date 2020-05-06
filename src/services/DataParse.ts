@@ -40,7 +40,7 @@ export class DataParse {
   public parseCountries(data: any): void {
     data.forEach((ele: any, i: number) => {
       if(i !== 0) {
-        this.countriesData[`${ele.country}`] = {
+        this.countriesData[`${ele.countryInfo.iso30}`] = {
           'lat': ele.countryInfo.lat,
           'lon': ele.countryInfo.long,
           'cases': ele.cases,
@@ -58,7 +58,7 @@ export class DataParse {
   */
   public parseProvinces(data: any, country: string): void {
     this.specCountryData[`${country}`] = [];
-    let countryCases: number = this.countriesData[`${country}`]?.cases || 1;
+    let countryCases: number = this.countriesData[`${country}`].cases || 1;
     data.forEach((ele: any) => {
       this.specCountryData[`${country}`].push({
         'province': ele.region.province,
