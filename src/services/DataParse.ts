@@ -40,7 +40,7 @@ export class DataParse {
   public parseCountries(data: any): void {
     data.forEach((ele: any, i: number) => {
       if(i !== 0) {
-        this.countriesData[`${ele.countryInfo.iso30}`] = {
+        this.countriesData[`${ele.countryInfo.iso3}`] = {
           'lat': ele.countryInfo.lat,
           'lon': ele.countryInfo.long,
           'cases': ele.cases,
