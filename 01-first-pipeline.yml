@@ -1,0 +1,58 @@
+# Basic pipeline. Will run unit tests, build and push a new docker image, then deploy on heroku
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+  - stage: Install
+    displayName: Installing dependencies
+    jobs:
+      - job: Install
+        steps:
+        - script: npm install
+  - stage: Test
+    dependsOn: Install
+    displayName: Executing Unit Tests
+    jobs:
+      - job: UnitTest
+        steps:
+          - bash: echo Should run unit tests
+  - stage: Compile
+    dependsOn: Test
+    displayName: Compiling TS into JS
+    jobs:
+      - job: Compilation
+        steps:
+          - script: npm run build
+  - stage: Dockerize
+    dependsOn: Compile
+    jobs:
+      - job: Build
+        displayName: Build Docker Image
+        steps:
+        - task: Docker@2
+          inputs:
+            containerRegistry: 'Docker Hub connection'
+            repository: 'achung98/covid-tracker'
+            command: 'build'
+            Dockerfile: '**/Dockerfile'
+            tags: '$(tag)'
+      - job: Push
+        displayName: Push Docker Image to Docker Hub
+        steps:
+        - task: Docker@2
+          inputs:
+            containerRegistry: 'Docker Hub connection'
+            repository: 'achung98/covid-tracker'
+            command: 'push'
+            Dockerfile: '**/Dockerfile'
+            tags: '$(tag)'
