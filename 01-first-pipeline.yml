@@ -10,12 +10,6 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
-  - stage: Install
-    displayName: Installing dependencies
-    jobs:
-      - job: Install
-        steps:
-        - script: sudo npm install -g 
   - stage: Test
     dependsOn: Install
     displayName: Executing Unit Tests
@@ -29,7 +23,9 @@ stages:
     jobs:
       - job: Compilation
         steps:
-          - script: npm run build
+          - script: |
+              npm install
+              npm run build
   - stage: Dockerize
     dependsOn: Compile
     jobs:
