@@ -11,7 +11,6 @@ variables:
 
 stages:
   - stage: Test
-    dependsOn: Install
     displayName: Executing Unit Tests
     jobs:
       - job: UnitTest
