@@ -18,7 +18,7 @@ stages:
     jobs:
       - job: Install
         steps:
-        - script: npm install
+        - script: npm install --only=dev
   - stage: Test
     dependsOn: Install
     displayName: Executing Unit Tests
