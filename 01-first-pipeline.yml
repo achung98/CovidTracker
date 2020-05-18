@@ -6,9 +6,6 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-resources:
-- repo: self
-
 variables:
   tag: '$(Build.BuildId)'
 
@@ -18,7 +15,6 @@ stages:
     jobs:
       - job: Install
         steps:
-        - script: npm install typescript --save-dev
         - script: npm install
   - stage: Test
     dependsOn: Install
