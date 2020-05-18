@@ -18,7 +18,8 @@ stages:
     jobs:
       - job: Install
         steps:
-        - script: npm install --only=dev
+        - script: npm install typescript --save-dev
+        - script: npm install
   - stage: Test
     dependsOn: Install
     displayName: Executing Unit Tests
