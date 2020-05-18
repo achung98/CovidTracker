@@ -15,7 +15,7 @@ stages:
     jobs:
       - job: Install
         steps:
-        - script: npm install
+        - script: sudo npm install -g 
   - stage: Test
     dependsOn: Install
     displayName: Executing Unit Tests
@@ -44,6 +44,7 @@ stages:
             Dockerfile: '**/Dockerfile'
             tags: '$(tag)'
       - job: Push
+        dependsOn: Build
         displayName: Push Docker Image to Docker Hub
         steps:
         - task: Docker@2
