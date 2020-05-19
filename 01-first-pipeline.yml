@@ -48,7 +48,7 @@ stages:
             inputs:
               dockerVersion: '17.09.0-ce'
           - script: |
-              sudo docker -f Dockerfile --iidfile imageid.txt build -t registry.heroku.com/$(app)/web .
+              sudo docker build -f Dockerfile --iidfile imageid.txt -t registry.heroku.com/$(app)/web .
               sudo docker login -u _ -p $(herokupass) registry.heroku.com
               sudo docker push registry.heroku.com/$(app)/web
               apk add --no-cache curl
