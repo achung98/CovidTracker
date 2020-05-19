@@ -48,8 +48,8 @@ stages:
             inputs:
               dockerVersion: '17.09.0-ce'
           - script: |
-              sudo docker login --username=achung998 --password=$(herokupass) registry.heroku.com
-              sudo docker build -t registry.heroku.com/$(app)/web .
+              sudo docker -f Dockerfile --iidfile imageid.txt build -t registry.heroku.com/$(app)/web .
+              sudo docker login -u _ -p $(herokupass) registry.heroku.com
               sudo docker push registry.heroku.com/$(app)/web
-              sudo heroku container:login
-              sudo heroku container:release web -a $(app)
+              apk add --no-cache curl
+              curl -X PATCH https://api.heroku.com/apps/$(app)/formation --header "Content-Type: application/json" --header "Accept: application/vnd.heroku+json; version=3.docker-releases" --header "Authorization: Bearer $(herokupass)" --data '{ "updates": [ { "type": "web", "docker_image": "'$(cat imageid.txt)'" } ] }'
