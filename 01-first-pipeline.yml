@@ -15,7 +15,7 @@ stages:
     jobs:
       - job: UnitTest
         steps:
-          - bash: echo Should run unit tests
+          - bash: echo Should run unit tests here
   - stage: Compile
     dependsOn: Test
     displayName: Compiling TS into JS
@@ -28,24 +28,26 @@ stages:
   - stage: Dockerize
     dependsOn: Compile
     jobs:
-      - job: Build
-        displayName: Build Docker Image
+      - job: BuildAndPush
+        displayName: Build and Push Docker Image
         steps:
         - task: Docker@2
           inputs:
             containerRegistry: 'Docker Hub connection'
             repository: 'achung98/covid-tracker'
-            command: 'build'
+            command: 'buildAndPush'
             Dockerfile: '**/Dockerfile'
             tags: '$(tag)'
-      - job: Push
-        dependsOn: Build
-        displayName: Push Docker Image to Docker Hub
+  - stage: Deploy
+    dependsOn: Dockerize
+    jobs:
+      - job: HerokuDockerRegistry
+        displayName: Push Image to Heroku Docker Registry
         steps:
-        - task: Docker@2
-          inputs:
-            containerRegistry: 'Docker Hub connection'
-            repository: 'achung98/covid-tracker'
-            command: 'push'
-            Dockerfile: '**/Dockerfile'
-            tags: '$(tag)'
+          - task: DockerInstaller@0
+            inputs:
+              dockerVersion: '17.09.0-ce'
+          - script: |
+              sudo docker login --username=_ --password=$(herokupass) registry.heroku.com 
+              sudo docker build -t registry.heroku.com/sleepy-coast-59266/web .
+              sudo docker push registry.heroku.com/sleepy-coast-59266/web
