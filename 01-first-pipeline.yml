@@ -48,6 +48,6 @@ stages:
             inputs:
               dockerVersion: '17.09.0-ce'
           - script: |
-              sudo docker login --username=_ --password=$(herokupass) registry.heroku.com 
-              sudo docker build -t registry.heroku.com/sleepy-coast-59266/web .
+              sudo docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
+              sudo docker build tag achung98/covid-tracker:$(tag) registry.heroku.com/sleepy-coast-59266/web .
               sudo docker push registry.heroku.com/sleepy-coast-59266/web
