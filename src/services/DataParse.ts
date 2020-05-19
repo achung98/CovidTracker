@@ -41,6 +41,7 @@ export class DataParse {
     data.forEach((ele: any, i: number) => {
       if(i !== 0) {
         this.countriesData[`${ele.countryInfo.iso3}`] = {
+          'country': ele.country,
           'lat': ele.countryInfo.lat,
           'lon': ele.countryInfo.long,
           'cases': ele.cases,

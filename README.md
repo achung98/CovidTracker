@@ -15,4 +15,4 @@ Get data regarding covid-19 cases from individual contries.
 */country/:country*
 - Where :country is the ISO of the country.
 Get data regarding covid-19 cases from specific country states/provinces.
-Some countries will not have the required data. Some countries that returns a valid response: United States, China, Canada, Australia.
+Some countries will not have the required data. Some countries that returns a valid response: United States (USA), China (CHN), Canada (CAN), Australia (AUS).
