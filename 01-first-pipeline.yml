@@ -51,5 +51,5 @@ stages:
               sudo docker login --username=achung998 --password=$(herokupass) registry.heroku.com
               sudo docker build -t registry.heroku.com/$(app)/web .
               sudo docker push registry.heroku.com/$(app)/web
-              sudo docker login --username=achung998 --password=$(herokupass) registry.heroku.com
+              sudo heroku container:login
               sudo heroku container:release web -a $(app)
