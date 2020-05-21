@@ -34,6 +34,8 @@ router.get('/countries', (req, res) => __awaiter(void 0, void 0, void 0, functio
         let f = yield fetch('https://corona.lmao.ninja/v2/countries?yesterday&sort');
         let data = yield f.json();
         let dataParse = DataParse_1.DataParse.getInstace();
+        console.log(dataParse.getLastUpdate());
+        console.log(moment_1.default(new Date()).format('YYYY-MM-DD'));
         if (!dataParse.getCountriesData().size || !dataParse.checkLastUpdate(moment_1.default(new Date()).format('YYYY-MM-DD'))) {
             dataParse.parseCountries(data);
         }

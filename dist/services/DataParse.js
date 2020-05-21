@@ -26,6 +26,9 @@ class DataParse {
     getSpecCountryData() {
         return this.specCountryData;
     }
+    getLastUpdate() {
+        return this.lastUpdate;
+    }
     checkLastUpdate(date) {
         return date === this.lastUpdate;
     }
@@ -36,6 +39,7 @@ class DataParse {
         data.forEach((ele, i) => {
             if (i !== 0) {
                 this.countriesData[`${ele.countryInfo.iso3}`] = {
+                    'country': ele.country,
                     'lat': ele.countryInfo.lat,
                     'lon': ele.countryInfo.long,
                     'cases': ele.cases,

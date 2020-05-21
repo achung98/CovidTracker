@@ -30,6 +30,10 @@ export class DataParse {
     return this.specCountryData;
   }
 
+  public getLastUpdate(): any {
+    return this.lastUpdate;
+  }
+
   public checkLastUpdate(date: any): boolean {
     return date === this.lastUpdate;
   }
