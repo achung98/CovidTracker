@@ -25,12 +25,16 @@ stages:
           - script: |
               npm install
               npm run build
+          - publish: $(System.DefaultWorkingDirectory)/dist
+            artifact: dist
   - stage: Dockerize
     dependsOn: Compile
     jobs:
       - job: BuildAndPush
         displayName: Build and Push Docker Image
         steps:
+        - download: current
+          artifact: dist
         - task: Docker@2
           inputs:
             containerRegistry: 'Docker Hub connection'
